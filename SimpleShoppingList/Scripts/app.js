@@ -1,7 +1,8 @@
-﻿var currentList { };
+﻿var currentList = {};
 
 function createShoppingList() {
     currentList.name = $("#shoppingListName").val();
+    currentList.items = new Array();
 
     // web service call
 
@@ -13,7 +14,13 @@ function createShoppingList() {
 
 }
 
+function addItem() {
+    var newItem = {};
+    newItem.name = $("#newItemName").val();
+    currentList.items.push(newItem);
+    console.info(currentList);
+}
 
 $(document).ready(function () {
     console.info("ready");
-});
+})
