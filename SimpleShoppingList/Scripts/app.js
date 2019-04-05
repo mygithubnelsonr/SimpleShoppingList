@@ -5,9 +5,15 @@ function createShoppingList() {
     currentList.items = new Array();
 
     // web service call
-
-    showShoppingList();
-
+    $.ajax({
+        type: "POST",
+        dataType: "json",
+        url: "api/ShoppingList/",
+        data: currentList,
+        success: function (result) {
+            showShoppingList();
+        }
+    });
 }
 
 function showShoppingList() {
@@ -28,12 +34,19 @@ function showShoppingList() {
 function addItem() {
     var newItem = {};
     newItem.name = $("#newItemName").val();
-    currentList.items.push(newItem);
-    // console.info(currentList);
+    newItem.shoppingListId = currentList.id;
 
-    drawItems();
-
-    $("#newItemName").val("");
+    $.ajax({
+        type: "POST",
+        dataType: "json",
+        url: "api/Item/",
+        data: newItem,
+        success: function (result) {
+            currentList = result;
+            drawItems();
+            $("#newItemName").val("");
+        }
+    });
 }
 
 function drawItems() {
@@ -64,17 +77,16 @@ function checkItem(index) {
 }
 
 function getShoppingListByID(id) {
-    console.info("shopping List ID=" + id);
-
-    currentList.name = "Mock Shopping List";
-    currentList.items = [
-        { name: "Milk" },
-        { name: "Bred" },
-        { name: "Butter"}
-    ];
-
-    showShoppingList();
-    drawItems();
+    $.ajax({
+        type: "GET",
+        dataType: "json",
+        url: "api/ShoppingList/" + id,
+        success: function (result) {
+            currentList = result;
+            showShoppingList();
+            drawItems();
+        }
+    });
 }
 
 $(document).ready(function () {
