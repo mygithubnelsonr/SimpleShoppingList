@@ -11,13 +11,6 @@ namespace SimpleShoppingList.Controllers
 {
     public class ShoppingListController : ApiController
     {
-        //currentList.name = "Mock Shopping List";
-        //currentList.items = [
-        //    { name: "Milk" },
-        //    { name: "Bred" },
-        //    { name: "Butter"}
-        //];
-
         public static List<ShoppingList> shoppingLists = new List<ShoppingList>
         {
             new ShoppingList() { Id = 0, Name = "Groceries", Items = {
@@ -42,11 +35,11 @@ namespace SimpleShoppingList.Controllers
             }
         };
 
-        // GET: api/ShoppingList
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
+        //// GET: api/ShoppingList
+        //public IEnumerable<string> Get()
+        //{
+        //    return new string[] { "value1", "value2" };
+        //}
 
         // GET: api/ShoppingList/5
         public IHttpActionResult Get(int id)
@@ -55,7 +48,7 @@ namespace SimpleShoppingList.Controllers
 
             if (result == null)
             {
-                // return NotFound();
+                return NotFound();
             }
 
             return Ok(result);
@@ -71,14 +64,14 @@ namespace SimpleShoppingList.Controllers
             return shoppingLists;
         }
 
-        // PUT: api/ShoppingList/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
+        //// PUT: api/ShoppingList/5
+        //public void Put(int id, [FromBody]string value)
+        //{
+        //}
 
-        // DELETE: api/ShoppingList/5
-        public void Delete(int id)
-        {
-        }
+        //// DELETE: api/ShoppingList/5
+        //public void Delete(int id)
+        //{
+        //}
     }
 }
