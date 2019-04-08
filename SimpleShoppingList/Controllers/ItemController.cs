@@ -1,5 +1,4 @@
-﻿using SimpleShoppingList.Controllers;
-using SimpleShoppingList.Models;
+﻿using SimpleShoppingList.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,48 +6,70 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 
-namespace SimpleShoppingListt.Controllers
+namespace SimpleShoppingList.Controllers
 {
     public class ItemController : ApiController
     {
-        //// GET: api/Item
-        //public IEnumerable<string> Get()
-        //{
-        //    return new string[] { "value1", "value2" };
-        //}
-
-        //// GET: api/Item/5
-        //public string Get(int id)
-        //{
-        //    return "value";
-        //}
-
         // POST: api/Item
-        public IHttpActionResult Post([FromBody] Item item)
+        public IHttpActionResult Post([FromBody]Item item)
         {
             ShoppingList shoppingList =
                 ShoppingListController.shoppingLists
-                    .Where(s => s.Id == item.ShoppingListID)
-                    .FirstOrDefault();
+                .Where(s => s.Id == item.ShoppingListId)
+                .FirstOrDefault();
 
-            if(shoppingList == null)
+            if (shoppingList == null)
             {
                 return NotFound();
             }
 
+            item.Id = shoppingList.Items.Max(i => i.Id) + 1;
             shoppingList.Items.Add(item);
-            return Ok(shoppingList);
 
+            return Ok(shoppingList);
         }
 
         // PUT: api/Item/5
-        public void Put(int id, [FromBody]string value)
+        public IHttpActionResult Put(int id, [FromBody]Item item)
         {
+            ShoppingList shoppingList =
+                ShoppingListController.shoppingLists
+                .Where(s => s.Id == item.ShoppingListId)
+                .FirstOrDefault();
+
+            if (shoppingList == null)
+            {
+                return NotFound();
+            }
+
+            Item changedItem = shoppingList.Items.Where(i => i.Id == id).FirstOrDefault();
+
+            if (changedItem == null) {
+                return NotFound();
+            }
+
+            changedItem.Checked = item.Checked;
+
+            return Ok(shoppingList);
         }
 
         // DELETE: api/Item/5
-        public void Delete(int id)
+        public IHttpActionResult Delete(int id)
         {
+
+            ShoppingList shoppingList =
+                ShoppingListController.shoppingLists[0];
+
+            Item deletedItem = shoppingList.Items.Where(i => i.Id == id).FirstOrDefault();
+
+            if (deletedItem == null)
+            {
+                return NotFound();
+            }
+
+            shoppingList.Items.Remove(deletedItem);
+
+            return Ok(shoppingList);
         }
     }
 }
