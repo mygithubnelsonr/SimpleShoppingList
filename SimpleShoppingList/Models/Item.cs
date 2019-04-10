@@ -18,10 +18,6 @@ namespace SimpleShoppingList.Models
             Name = String.Empty;
             Checked = false;
             ShoppingListID = -1;
-
         }
-
-
-
     }
 }

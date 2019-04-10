@@ -11,13 +11,6 @@ namespace SimpleShoppingList.Controllers
 {
     public class ShoppingListController : ApiController
     {
-        //currentList.name = "Mock Shopping List";
-        //currentList.items = [
-        //    { name: "Milk" },
-        //    { name: "Bred" },
-        //    { name: "Butter"}
-        //];
-
         public static List<ShoppingList> shoppingLists = new List<ShoppingList>
         {
             new ShoppingList() { Id = 0, Name = "Groceries", Items = {
