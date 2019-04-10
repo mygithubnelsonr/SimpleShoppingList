@@ -11,7 +11,6 @@ namespace SimpleShoppingList.Models
         public string Name { get; set; }
         public List<Item> Items { get; set; }
 
-
         public ShoppingList()
         {
             Id = 0;
@@ -19,5 +18,4 @@ namespace SimpleShoppingList.Models
             Items = new List<Item>();
         }
     }
-
 }

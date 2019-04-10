@@ -14,64 +14,46 @@ namespace SimpleShoppingList.Controllers
         public static List<ShoppingList> shoppingLists = new List<ShoppingList>
         {
             new ShoppingList() { Id = 0, Name = "Groceries", Items = {
-                    new Item { Name = "Milk" },
-                    new Item { Name = "Bred" },
-                    new Item { Name = "Butter" }
+                    new Item { Id = 0, Name = "Milk", ShoppingListId = 0 },
+                    new Item { Id = 1, Name = "Bred", ShoppingListId = 0 },
+                    new Item { Id = 2, Name = "Butter", ShoppingListId = 0 }
                     }
                 },
-            new ShoppingList() { Id = 1, Name = "Hardware", Items =
-                {
-                    new Item { Name = "Hammer"},
-                    new Item { Name = "Screwdriver"},
-                    new Item { Name = "Forcaps"}
+            new ShoppingList() { Id = 1, Name = "Hardware", Items = {
+                    new Item { Id = 0, Name = "Hammer", ShoppingListId = 1},
+                    new Item { Id = 1, Name = "Screwdriver", ShoppingListId = 1},
+                    new Item { Id = 2, Name = "Forcaps", ShoppingListId = 1}
                 }
             },
-            new ShoppingList() { Id = 2, Name = "Clothes", Items =
-                {
-                    new Item {Name = "Shirt"},
-                    new Item {Name = "Pants"},
-                    new Item {Name = "Jacket"}
+            new ShoppingList() { Id = 2, Name = "Clothes", Items = {
+                    new Item { Id = 0, Name = "Shirt", ShoppingListId = 2},
+                    new Item { Id = 1, Name = "Pants", ShoppingListId = 2},
+                    new Item { Id = 2, Name = "Jacket", ShoppingListId = 2}
                 }
             }
         };
 
-        // GET: api/ShoppingList
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
-
         // GET: api/ShoppingList/5
         public IHttpActionResult Get(int id)
         {
-            ShoppingList result = shoppingLists.FirstOrDefault(s => s.Id == id);
+            ShoppingList result =
+                shoppingLists.FirstOrDefault(s => s.Id == id);
 
             if (result == null)
             {
-                // return NotFound();
+                //return NotFound();
             }
 
             return Ok(result);
-
         }
 
         // POST: api/ShoppingList
-        public IEnumerable Post([FromBody] ShoppingList newList)
+        public IEnumerable Post([FromBody]ShoppingList newList)
         {
             newList.Id = shoppingLists.Count;
             shoppingLists.Add(newList);
 
             return shoppingLists;
-        }
-
-        // PUT: api/ShoppingList/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE: api/ShoppingList/5
-        public void Delete(int id)
-        {
         }
     }
 }
